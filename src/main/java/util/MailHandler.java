@@ -62,6 +62,7 @@ public class MailHandler {
         multiProps.put("mail.smtp.port", smtpPort);
         multiProps.put("mail.smtp.host", smtpHost);
         multiProps.put("mail.smtp.auth", "true");
+        multiProps.put("mail.smtp.starttls.enable", "true");
         multiProps.put("mail.mime.charset", ENCODING);
 
         Session session = Session.getDefaultInstance(multiProps, auth);

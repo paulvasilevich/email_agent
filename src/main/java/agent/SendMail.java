@@ -19,7 +19,7 @@ public class SendMail extends HttpServlet {
     private static final String CONTENT = "message";
     private static final String FROM = "from";
     private static final String TO = "to";
-//    private static final String LOGIN = "login";
+    private static final String ATTACHMENT = "attachFile";
     private static final String PASSWORD = "password";
     private static final String SMTPHOST = "smtp.gmail.com";
     private static final String SMTPPORT = "587";
@@ -39,10 +39,17 @@ public class SendMail extends HttpServlet {
         String to = req.getParameter(TO);
         String content = req.getParameter(CONTENT);
         String subject = req.getParameter(SUBJECT);
+        String url = req.getParameter(ATTACHMENT);
         try {
-            MailHandler.sendSimpleMessage(login, password, from, to, content, SMTPHOST,
-                    SMTPPORT,
-                    subject);
+            if (url == null || url.equals("")) {
+                MailHandler.sendSimpleMessage(login, password, from, to, content, SMTPHOST,
+                        SMTPPORT,
+                        subject);
+            } else {
+                MailHandler.sendMultuplyMessage(url,login, password, from, to, content, SMTPHOST,
+                        SMTPPORT,
+                        subject);
+            }
         } catch (MessagingException e) {
             e.printStackTrace();
         }
