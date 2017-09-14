@@ -80,10 +80,10 @@ public class MailHandler {
 
         MimeBodyPart atachBodyPart = new MimeBodyPart();
 
-        DataSource atachSource = new FileDataSource(attachement);
+        DataSource atachSource = new FileDataSource("attachments/" + attachement);
 
         atachBodyPart.setDataHandler(new DataHandler(atachSource));
-        atachBodyPart.setFileName(MimeUtility.encodeText(atachSource.getName()));
+        atachBodyPart.setFileName(attachement);
         multip.addBodyPart(atachBodyPart);
 
         mltPartMsg.setContent(multip);
@@ -91,7 +91,7 @@ public class MailHandler {
         Transport.send(mltPartMsg);
     }
 
-    public static void receiveMessage(String user, String host, String password) throws MessagingException, IOException {
+    public static LinkedList<MessageBean> receiveMessage(String user, String host, String password) throws MessagingException, IOException {
 
         Authenticator auth = new MyAuthenticator(user, password);
 
@@ -118,6 +118,7 @@ public class MailHandler {
 
         inbox.close(false);
         store.close();
+        return mailList;
     }
 
     private static LinkedList<MessageBean> getPart(Message[] messages,
@@ -164,7 +165,7 @@ public class MailHandler {
     }
 
     private static String saveFile(String filename, InputStream inputStream) throws IOException {
-        String path = "attachements\\" + filename;
+        String path = "attachments/" + filename;
         FileOutputStream out = null;
         try {
             byte[] attachment = new byte[inputStream.available()];
