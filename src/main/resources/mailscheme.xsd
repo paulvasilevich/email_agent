@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://localhost/8080/mail_agent/mail">
+    <xs:element name="mailbox">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="mail" type="Mail" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+        <complexType name="Mail">
+            <sequence>
+                <element name="from" type="xs:string"/>
+                <element name="to" type="xs:string"/>
+                <element name="theme" type="xs:string"/>
+                <element name="message" type="xs:string"/>
+                <element name="date" type="xs:dateTime"/>
+            </sequence>
+        </complexType>
+</schema>
